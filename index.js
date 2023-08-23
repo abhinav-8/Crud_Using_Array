@@ -15,6 +15,14 @@ let blogList=[];
 
 //Middleware functions
 function authentication(req,res,next){
+    console.log(req.url);
+    console.log(req.body);
+    let auth=false;
+    if(auth == false){
+        return res.status(500).json({
+            message:"Something went wrong"
+        });
+    }
     console.log("Authenticated");
     next();
 }
