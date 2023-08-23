@@ -7,11 +7,24 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+//Will act as a global middleware for all endpoints
+app.use(authentication);
+
 //Mimic the db using array
 let blogList=[];
 
+//Middleware functions
+function authentication(req,res,next){
+    console.log("Authenticated");
+    next();
+}
+function premiumUser(req,res,next){
+    console.log("Yes,premium user");
+    next();
+}
+
 //Get list of all blogs
-app.get('/blogs',(req,res) => {
+app.get('/blogs',premiumUser,(req,res) => {
     return res.status(200).json({
         data:blogList,
         success:true,
